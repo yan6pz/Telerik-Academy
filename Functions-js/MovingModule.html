@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>ModuleForWorkingWithMovingDivs</title>
+</head>
+<body>
+    <button onclick="move.addRect()">AddDivToRectangle</button>
+    <button onclick="move.addCircle()">AddDivToCircle</button>
+    <script>
+
+        var move = module();
+
+
+        function module() {
+
+            function CreateDiv() {
+                var div = document.createElement("div");
+                div.style.width = "50px";
+                div.style.height = "50px";
+               
+                div.style.backgroundColor = randomColor();
+                div.style.position = "absolute";
+                div.innerText = "Div";
+                div.style.textAlign = "center";             
+                div.style.color = randomColor();               
+                var newElement = document.createElement("strong");
+                newElement.textContent = "div";
+                div.appendChild(newElement);
+                div.style.borderStyle = "solid";
+                div.style.borderRadius = "2px" ;
+                div.style.borderColor = randomColor();
+               
+
+                function randomColor() {
+                    var red = (Math.random() * 256) | 0;
+                    var green = (Math.random() * 256) | 0;
+                    var blue = (Math.random() * 256) | 0;
+                    var result = "rgb(" + red + "," + green + "," + blue + ")";
+                    return result;
+                }
+
+                return div;
+            }
+           
+            function moveRect(element) {
+                var top = 70;
+                var right = 70;
+                setInterval(function () {
+                    if (top <= 300 && right == 70) {
+                        top++;
+                    }
+                    else if (right <= 300 && top > 299) {
+                        right++;
+                    }
+                    else if (right > 299 && top >= 70) {
+                        top--;
+                    }
+
+                    else if (top < 71 && right >= 70) {
+                        right--;
+                    }
+                    element.style.top = top + "px";
+                    element.style.right = right + "px";
+                }, 10);
+            }
+
+
+            function moveInCircle(element) {
+                element.setAttribute("angleAttr", "0");
+                element.style.left = "300px";
+                element.style.top = "200px";
+
+                setInterval(function () {
+                    var angleInRadians = (element.getAttribute("angleAttr")) * (Math.PI / 180);
+                    var left = 150 * Math.cos(angleInRadians) + 400;
+                    var top = 150 * Math.sin(angleInRadians) + 200;
+                    console.log(angleInRadians);
+                    element.style.left = left + "px";
+                    element.style.top = top + "px";
+                    element.attributes.angleAttr.nodeValue++;
+                }, 10);
+            }
+            
+
+            function addRect() {
+                var div = CreateDiv();
+
+                document.body.appendChild(div);
+
+                moveRect(div);
+            }
+
+            function addCircle() {
+                var div = CreateDiv();
+
+                document.body.appendChild(div);
+
+                moveInCircle(div);
+            }
+         
+           return {
+               addCircle: addCircle,
+               addRect: addRect
+           } 
+        }
+    </script>
+</body>
+</html>

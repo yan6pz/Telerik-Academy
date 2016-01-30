@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script>
+        var textArea = document.createElement("textarea");
+        textArea.textContent = "Creating a text area and two inputs with type=color. Making the font color of the text area as the value of the first color input.Making the background color of the text area as the value of the second input.";
+        
+        
+        //assume the properties for the first input(font-color)
+        var inputFont = document.createElement("input");
+        inputFont.id = "font-color";
+        inputFont.type = "color";
+        inputFont.onchange = changeFontColor;
+        inputFont.placeholder = "font-color";
+       
+        //assume for the second input
+        var inputBackground = document.createElement("input");
+        inputBackground.id = "background-color";
+        inputBackground.type = "color";
+        inputBackground.placeholder = "background-color";
+        inputBackground.onchange = changeBackgroundColor;
+        
+        document.body.appendChild(textArea);
+        document.body.appendChild(inputFont);
+        document.body.appendChild(inputBackground);
+
+
+        function changeBackgroundColor() {
+            return textArea.style.backgroundColor = document.getElementById("background-color").value;
+        }
+        function changeFontColor() {
+            return textArea.style.color = document.getElementById("font-color").value;
+        }
+    </script>
+</body>
+</html>
